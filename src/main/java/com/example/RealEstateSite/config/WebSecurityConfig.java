@@ -42,6 +42,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/user/login").permitAll()
                 .requestMatchers("/user/test").authenticated()
                 .requestMatchers("/user/testAdmin").hasAuthority("ADMIN")
+                .requestMatchers("/post/save").authenticated()
                 .requestMatchers("/post/*").permitAll()
                 .and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
