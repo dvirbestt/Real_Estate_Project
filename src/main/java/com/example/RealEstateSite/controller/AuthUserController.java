@@ -16,6 +16,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 @RestController
 @CrossOrigin
@@ -39,7 +40,7 @@ public class AuthUserController {
         System.out.println(1);
         if (errors.hasErrors()) {
             ArrayList<String> errorList = new ArrayList<>();
-            errors.getAllErrors().stream().forEach((error -> {
+            errors.getAllErrors().forEach((error -> {
                 errorList.add(error.getDefaultMessage());
             }));
             return ResponseEntity.badRequest().body(errorList);
@@ -53,11 +54,9 @@ public class AuthUserController {
                 request.getEmail(),
                 request.getPhoneNumber()
         );
-        if (authUserService.register(authUser)) {
-            userContactService.saveUser(userContact);
-            return ResponseEntity.ok().body("Registered Successfully");
-        }
-        return ResponseEntity.badRequest().body("User Name Already Taken");
+
+        return authUserService.register(authUser,userContact);
+
     }
 
     @PostMapping("/login")
@@ -65,7 +64,7 @@ public class AuthUserController {
 
         if (errors.hasErrors()) {
             ArrayList<String> errorList = new ArrayList<>();
-            errors.getAllErrors().stream().forEach((error -> {
+            errors.getAllErrors().forEach((error -> {
                 errorList.add(error.getDefaultMessage());
             }));
             return ResponseEntity.badRequest().body(errorList);

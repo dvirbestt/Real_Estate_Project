@@ -13,13 +13,9 @@ public class UserContactService {
     @Autowired
     private UserContactRepository userContactRepository;
 
-    public boolean saveUser(UserContact userContact){
-        Optional<UserContact> existingUser = userContactRepository.findUserByUsername(userContact.getUsername());
-        if (existingUser.isPresent()){
-            return false;
-        }
+    public void saveUser(UserContact userContact){
         userContactRepository.save(userContact);
-        return true;
+
     }
 
     public UserContact getUserDetails(String username){
