@@ -22,5 +22,7 @@ public class Post {
     private int parameter;
     private String description;
     private String photosUrl;
+    private String authorPhone;
+    private String authorEmail;
 
 }

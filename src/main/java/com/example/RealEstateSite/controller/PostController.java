@@ -44,6 +44,11 @@ public class PostController {
         return ResponseEntity.ok().body("No Matches");
     }
 
+    @PostMapping("/getById")
+    public ResponseEntity<?> getById(@RequestBody Post post){
+        return ResponseEntity.ok().body(postService.getById(post.getId()));
+    }
+
 
     @GetMapping("/random")
     public ResponseEntity<?> getRandom(){

@@ -5,13 +5,17 @@ import com.example.RealEstateSite.model.AuthenticationResponse;
 import com.example.RealEstateSite.model.RegistrationRequest;
 import com.example.RealEstateSite.model.UserContact;
 import com.example.RealEstateSite.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
@@ -31,8 +35,17 @@ public class AuthUserController {
     private JwtService jwtUtils;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegistrationRequest request){
-        AuthUser authUser = new AuthUser(request.getUsername(),request.getPassword());
+    public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest request, Errors errors) {
+        System.out.println(1);
+        if (errors.hasErrors()) {
+            ArrayList<String> errorList = new ArrayList<>();
+            errors.getAllErrors().stream().forEach((error -> {
+                errorList.add(error.getDefaultMessage());
+            }));
+            return ResponseEntity.badRequest().body(errorList);
+        }
+
+        AuthUser authUser = new AuthUser(request.getUsername(), request.getPassword());
         UserContact userContact = new UserContact(
                 request.getUsername(),
                 request.getFirstName(),
@@ -40,7 +53,7 @@ public class AuthUserController {
                 request.getEmail(),
                 request.getPhoneNumber()
         );
-        if (authUserService.register(authUser)){
+        if (authUserService.register(authUser)) {
             userContactService.saveUser(userContact);
             return ResponseEntity.ok().body("Registered Successfully");
         }
@@ -48,18 +61,25 @@ public class AuthUserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthUser authUser) throws Exception{
-        System.out.println(1);
+    public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody AuthUser authUser, Errors errors) throws Exception {
+
+        if (errors.hasErrors()) {
+            ArrayList<String> errorList = new ArrayList<>();
+            errors.getAllErrors().stream().forEach((error -> {
+                errorList.add(error.getDefaultMessage());
+            }));
+            return ResponseEntity.badRequest().body(errorList);
+        }
+
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authUser.getUsername(),authUser.getPassword())
+                    new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword())
 
             );
 
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
 
-            throw new Exception("Incorrect User/password",e);
-
+            return ResponseEntity.status(401).body("Wrong Username / Password");
         }
         final AppUserDetails userDetails = appUserDetailsService.loadUserByUsername(authUser.getUsername());
         final String jwt = jwtUtils.generateToken(userDetails);
@@ -67,13 +87,4 @@ public class AuthUserController {
 
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "Test Successfully";
-    }
-
-    @GetMapping("/testAdmin")
-    public String testAdmin(){
-        return "Test Admin";
-    }
 }
