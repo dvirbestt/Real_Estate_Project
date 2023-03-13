@@ -40,4 +40,6 @@ public class AuthUserService {
         userContactService.saveUser(userContact);
         return ResponseEntity.ok().body(Collections.singleton("User Created Successfully"));
     }
+
+
 }

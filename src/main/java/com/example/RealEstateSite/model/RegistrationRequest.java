@@ -21,7 +21,7 @@ public class RegistrationRequest {
     String firstName;
     @Pattern(regexp = "^((?=.*[A-Za-z])).{1,20}$", message = "Last Name Must Be Filled And Contain Only Letters")
     String lastName;
-    @Pattern(regexp = "^.{2,40}$", message = "Email Must Be Filled")
+    @Pattern(regexp = "^(.+)@(.+).com$", message = "Email Must Be Filled")
     String email;
 
     @NotNull(message = "Phone Number Must Be Filled")

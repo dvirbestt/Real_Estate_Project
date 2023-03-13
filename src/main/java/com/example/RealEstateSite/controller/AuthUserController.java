@@ -15,11 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.processing.SupportedOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/user")
 public class AuthUserController {
 
@@ -37,16 +38,20 @@ public class AuthUserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest request, Errors errors) {
-        System.out.println(1);
+
         if (errors.hasErrors()) {
+
             ArrayList<String> errorList = new ArrayList<>();
+
             errors.getAllErrors().forEach((error -> {
                 errorList.add(error.getDefaultMessage());
             }));
+
             return ResponseEntity.badRequest().body(errorList);
         }
 
         AuthUser authUser = new AuthUser(request.getUsername(), request.getPassword());
+
         UserContact userContact = new UserContact(
                 request.getUsername(),
                 request.getFirstName(),
@@ -63,27 +68,36 @@ public class AuthUserController {
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody AuthUser authUser, Errors errors) throws Exception {
 
         if (errors.hasErrors()) {
+
             ArrayList<String> errorList = new ArrayList<>();
+
             errors.getAllErrors().forEach((error -> {
                 errorList.add(error.getDefaultMessage());
             }));
+
             return ResponseEntity.badRequest().body(errorList);
         }
 
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword())
-
             );
-
         } catch (BadCredentialsException e) {
-
             return ResponseEntity.status(401).body("Wrong Username / Password");
         }
+
         final AppUserDetails userDetails = appUserDetailsService.loadUserByUsername(authUser.getUsername());
+
         final String jwt = jwtUtils.generateToken(userDetails);
+
         return ResponseEntity.ok().body(new AuthenticationResponse(jwt, userContactService.getUserDetails(authUser.getUsername())));
 
+    }
+
+    @PostMapping("/checkValidation")
+
+    public ResponseEntity<?> checkValidation(){
+        return ResponseEntity.status(200).body("test");
     }
 
 }

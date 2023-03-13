@@ -15,7 +15,6 @@ public class UserContactService {
 
     public void saveUser(UserContact userContact){
         userContactRepository.save(userContact);
-
     }
 
     public UserContact getUserDetails(String username){
