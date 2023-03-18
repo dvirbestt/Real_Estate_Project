@@ -5,14 +5,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
-import lombok.ToString;
-import lombok.Value;
+import lombok.*;
 import org.springframework.data.mapping.model.Property;
 
 @Entity
 @Data
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,7 +26,7 @@ public class Post {
     private String city;
     @NotNull
     @Min(value = 1,message = "Number Of Rooms Must Be Filled")
-    private float numOfRooms;
+    private int numOfRooms;
     @NotNull
     @Min(value = 1,message = "Floor Must Be Filled")
     private int floor;
@@ -46,6 +46,33 @@ public class Post {
     private PropertyType propertyType;
     @NotNull
     @Min(value = 1,message = "Price Must Be Filled")
-    private Long price;
+    private long price;
+
+    public Post(String author,
+                String firstName,
+                String address,
+                String city,
+                int numOfRooms,
+                int floor,
+                int parameter,
+                String description,
+                String authorPhone,
+                String authorEmail,
+                PropertyType propertyType,
+                long price){
+
+        this.author = author;
+        this.authorFirstName =firstName;
+        this.address= address;
+        this.city = city;
+        this.numOfRooms= numOfRooms;
+        this.floor =floor;
+        this.parameter= parameter;
+        this.description =description;
+        this.authorPhone= authorPhone;
+        this.authorEmail = authorEmail;
+        this.propertyType = propertyType;
+        this.price = price;
+    }
 
 }

@@ -71,7 +71,11 @@ public class PostController {
 
     @PostMapping("/getById")
     public ResponseEntity<?> getById(@RequestBody Post post){
-        return ResponseEntity.ok().body(postService.getById(post.getId()));
+        Post fullPost = postService.getById(post.getId());
+        if (fullPost != null){
+            return ResponseEntity.ok().body(postService.getById(post.getId()));
+        }
+        return ResponseEntity.badRequest().body(Collections.singleton("No Such Post Id Found"));
     }
 
 

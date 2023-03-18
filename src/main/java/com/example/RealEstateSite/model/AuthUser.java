@@ -32,4 +32,9 @@ public class AuthUser {
         this.password = password;
     }
 
+    public AuthUser(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }

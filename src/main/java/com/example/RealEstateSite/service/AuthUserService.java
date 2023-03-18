@@ -34,7 +34,9 @@ public class AuthUserService {
         if (exists1.isPresent()){
             return ResponseEntity.badRequest().body(Collections.singleton("Email Already Taken"));
         }
-        authUser.setRole(Role.USER);
+        if (authUser.getRole()==null){
+            authUser.setRole(Role.USER);
+        }
         authUser.setPassword(new BCryptPasswordEncoder().encode(authUser.getPassword()));
         authUserRepository.save(authUser);
         userContactService.saveUser(userContact);
