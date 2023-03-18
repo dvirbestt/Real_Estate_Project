@@ -6,7 +6,6 @@ import com.example.RealEstateSite.model.Post;
 import com.example.RealEstateSite.model.SearchRequest;
 import com.example.RealEstateSite.model.UpdateRequest;
 import com.example.RealEstateSite.repository.PostRepository;
-import com.example.RealEstateSite.service.AppUserDetails;
 import com.example.RealEstateSite.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

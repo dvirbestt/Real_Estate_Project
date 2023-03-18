@@ -2,9 +2,7 @@ package com.example.RealEstateSite.service;
 
 import com.example.RealEstateSite.model.AuthUser;
 import com.example.RealEstateSite.repository.AuthUserRepository;
-import com.example.RealEstateSite.repository.UserContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

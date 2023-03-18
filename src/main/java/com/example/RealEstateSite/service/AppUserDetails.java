@@ -2,7 +2,6 @@ package com.example.RealEstateSite.service;
 
 
 import com.example.RealEstateSite.model.AuthUser;
-import com.example.RealEstateSite.model.UserContact;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

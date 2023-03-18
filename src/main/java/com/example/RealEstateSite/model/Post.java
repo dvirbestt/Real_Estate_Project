@@ -1,12 +1,10 @@
 package com.example.RealEstateSite.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.data.mapping.model.Property;
 
 @Entity
 @Data

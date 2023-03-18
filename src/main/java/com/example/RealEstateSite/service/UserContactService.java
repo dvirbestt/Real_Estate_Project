@@ -1,12 +1,10 @@
 package com.example.RealEstateSite.service;
 
-
 import com.example.RealEstateSite.model.UserContact;
 import com.example.RealEstateSite.repository.UserContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserContactService {
