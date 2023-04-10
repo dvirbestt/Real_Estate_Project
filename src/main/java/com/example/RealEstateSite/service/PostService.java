@@ -5,12 +5,14 @@ import com.example.RealEstateSite.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
 public class PostService {
+    private String folder = "/Users/dvirbest/Downloads/RealEstateSite/src/main/resources/Images/";
     @Autowired
     private AppUserDetailsService appUserDetailsService;
 
@@ -19,6 +21,7 @@ public class PostService {
 
     @Autowired
     private JwtService jwtService;
+
 
     public List<Post> findByCity(String city){
         return postRepository.findByCity(city);
@@ -88,17 +91,18 @@ public class PostService {
         return false;
     }
 
-    public boolean updatePost(UpdateRequest updateRequest){
+    public Post updatePost(UpdateRequest updateRequest){
         Optional<Post> isPostExist = postRepository.findById(updateRequest.getPost().getId());
 
         if (isPostExist.isPresent()) {
             AppUserDetails userDetails = appUserDetailsService.loadUserByUsername(jwtService.extractUsername(updateRequest.getJwt()));
             if (isPostExist.get().getAuthor().equals(userDetails.getUsername()) ){
-                postRepository.save(updateRequest.getPost());
-                return true;
+               ;
+                return postRepository.save(updateRequest.getPost());
             }
         }
-        return false;
+        return null;
     }
+
 
 }

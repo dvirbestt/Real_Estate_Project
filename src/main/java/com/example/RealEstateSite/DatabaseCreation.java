@@ -10,14 +10,14 @@ public class DatabaseCreation {
         try{
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/real_estate_app",
-                    "root","root");
+                    "root","root1234");
             con.close();
 
         }catch (Exception e){
             try{
 
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root",
-                        "root");
+                        "root1234");
                 Statement statement = con.createStatement();
                 statement.execute("CREATE DATABASE real_estate_app");
                 con.close();

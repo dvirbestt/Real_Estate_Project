@@ -1,10 +1,7 @@
 package com.example.RealEstateSite.controller;
 
 
-import com.example.RealEstateSite.model.DeletePostRequest;
-import com.example.RealEstateSite.model.Post;
-import com.example.RealEstateSite.model.SearchRequest;
-import com.example.RealEstateSite.model.UpdateRequest;
+import com.example.RealEstateSite.model.*;
 import com.example.RealEstateSite.repository.PostRepository;
 import com.example.RealEstateSite.service.PostService;
 import jakarta.validation.Valid;
@@ -13,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,11 +27,11 @@ public class PostController {
     private PostRepository postRepository;
 
     @PostMapping("/save")
-    public ResponseEntity<?> savePost(@Valid @RequestBody Post post,Errors errors) throws HttpMessageNotReadableException {
-
+    public ResponseEntity<?> savePost(@Valid @RequestBody Post post, Errors errors) {
         if (errors.hasErrors()) {
             ArrayList<String> errorList = new ArrayList<>();
             errors.getAllErrors().forEach((error -> {
+
                 errorList.add(error.getDefaultMessage());
             }));
             return ResponseEntity.status(401).body(errorList);
@@ -113,9 +112,13 @@ public class PostController {
             }));
             return ResponseEntity.status(401).body(errorList);
         }
-        if (postService.updatePost(updateRequest)){
-            return ResponseEntity.ok().body(Collections.singleton("Post Updated Successfully"));
+        Post post = postService.updatePost(updateRequest);
+        if (post != null){
+            return ResponseEntity.ok().body(post);
         }
         return ResponseEntity.status(401).body(Collections.singleton("Something Went Wrong, Please Try Again!"));
     }
+
+
+
 }

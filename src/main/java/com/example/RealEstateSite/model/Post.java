@@ -35,7 +35,6 @@ public class Post {
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
-    private String photosUrl;
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone Must Be Filled")
     private String authorPhone;
     @Pattern(regexp = "^(.+)@(.+).com$", message = "Email Must Be Filled")
@@ -45,6 +44,10 @@ public class Post {
     @NotNull
     @Min(value = 1,message = "Price Must Be Filled")
     private long price;
+
+    private String imagePath;
+
+
 
     public Post(String author,
                 String firstName,
