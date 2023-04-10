@@ -87,14 +87,13 @@ public class AuthUserController {
 
         final String jwt = jwtUtils.generateToken(userDetails);
 
-        return ResponseEntity.ok().body(new AuthenticationResponse(jwt, userContactService.getUserDetails(authUser.getUsername())));
+        return ResponseEntity.ok().body(new AuthenticationResponse(jwt, userContactService.getUserDetails(authUser.getUsername()),userDetails.getRole()));
 
     }
 
     @PostMapping("/checkValidation")
-
     public ResponseEntity<?> checkValidation(){
-        return ResponseEntity.status(200).body("test");
+        return ResponseEntity.status(200).body("JWT Not Expired");
     }
 
 }

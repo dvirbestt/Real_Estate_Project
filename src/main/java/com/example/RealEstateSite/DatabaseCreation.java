@@ -10,20 +10,20 @@ public class DatabaseCreation {
         try{
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/real_estate_app",
-                    "root","root1234");
+                    "root","root");
             con.close();
 
         }catch (Exception e){
             try{
 
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/","root",
-                        "root1234");
+                        "root");
                 Statement statement = con.createStatement();
                 statement.execute("CREATE DATABASE real_estate_app");
                 con.close();
 
-            }catch (Exception i){
-                System.out.println(i);
+            }catch (Exception ex){
+                System.out.println(ex);
             }
         }
     }

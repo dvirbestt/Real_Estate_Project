@@ -119,6 +119,13 @@ public class PostController {
         return ResponseEntity.status(401).body(Collections.singleton("Something Went Wrong, Please Try Again!"));
     }
 
-
+    @PostMapping("/adminDeletePost")
+    public ResponseEntity<?> adminDeletePost(@RequestBody Post post){
+        System.out.println(post);
+        if (postService.adminDeletePost(post)){
+            return ResponseEntity.ok().body("Post Deleted Successfully");
+        }
+        return ResponseEntity.badRequest().body("Post Couldn't Be Deleted");
+    }
 
 }

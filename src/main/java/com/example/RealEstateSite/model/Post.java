@@ -60,7 +60,8 @@ public class Post {
                 String authorPhone,
                 String authorEmail,
                 PropertyType propertyType,
-                long price){
+                long price,
+                String imagePath){
 
         this.author = author;
         this.authorFirstName =firstName;
@@ -74,6 +75,7 @@ public class Post {
         this.authorEmail = authorEmail;
         this.propertyType = propertyType;
         this.price = price;
+        this.imagePath = imagePath;
     }
 
 }

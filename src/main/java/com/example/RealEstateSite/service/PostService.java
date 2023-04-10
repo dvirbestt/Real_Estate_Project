@@ -104,5 +104,14 @@ public class PostService {
         return null;
     }
 
+    public boolean adminDeletePost(Post post){
+        try {
+            System.out.println(post);
+            postRepository.deleteById(post.getId());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 
 }

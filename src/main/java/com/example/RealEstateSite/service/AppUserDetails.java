@@ -2,6 +2,7 @@ package com.example.RealEstateSite.service;
 
 
 import com.example.RealEstateSite.model.AuthUser;
+import com.example.RealEstateSite.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,10 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(authUser.getRole().name()));
+    }
+
+    public Role getRole(){
+        return authUser.getRole();
     }
 
     @Override
