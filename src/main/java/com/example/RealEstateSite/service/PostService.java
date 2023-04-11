@@ -104,10 +104,9 @@ public class PostService {
         return null;
     }
 
-    public boolean adminDeletePost(Post post){
+    public boolean adminDeletePost(String id){
         try {
-            System.out.println(post);
-            postRepository.deleteById(post.getId());
+            postRepository.deleteById(id);
             return true;
         }catch (Exception e){
             return false;

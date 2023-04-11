@@ -1,16 +1,14 @@
 package com.example.RealEstateSite.controller;
 
-
 import com.example.RealEstateSite.model.*;
 import com.example.RealEstateSite.repository.PostRepository;
 import com.example.RealEstateSite.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,9 +105,7 @@ public class PostController {
     public ResponseEntity<?> updatePost(@Valid @RequestBody UpdateRequest updateRequest,Errors errors){
         if (errors.hasErrors()) {
             ArrayList<String> errorList = new ArrayList<>();
-            errors.getAllErrors().forEach((error -> {
-                errorList.add(error.getDefaultMessage());
-            }));
+            errors.getAllErrors().forEach(error -> errorList.add(error.getDefaultMessage()));
             return ResponseEntity.status(401).body(errorList);
         }
         Post post = postService.updatePost(updateRequest);
@@ -120,9 +116,8 @@ public class PostController {
     }
 
     @PostMapping("/adminDeletePost")
-    public ResponseEntity<?> adminDeletePost(@RequestBody Post post){
-        System.out.println(post);
-        if (postService.adminDeletePost(post)){
+    public ResponseEntity<?> adminDeletePost(@RequestBody AdminPostDelete adminPostDelete){
+        if (postService.adminDeletePost(adminPostDelete.getId())){
             return ResponseEntity.ok().body("Post Deleted Successfully");
         }
         return ResponseEntity.badRequest().body("Post Couldn't Be Deleted");
