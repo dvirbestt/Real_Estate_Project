@@ -24,11 +24,11 @@ public class RunAfterStartUp {
         Optional<AuthUser> testUser = authUserRepository.findByUsername("admin1");
 
         if (testUser.isEmpty()) {
-            AuthUser authUser = new AuthUser("admin1", "0502222222Db!", Role.ADMIN);
+            AuthUser authUser = new AuthUser("admin1", "0502222222Aa!", Role.ADMIN);
             UserContact userContact = new UserContact(authUser.getUsername(), "admin1", "admin1", "admin1@gmail.com", "0502222222");
             authUserService.register(authUser, userContact);
 
-            AuthUser user1 = new AuthUser("user1", "0502222222Db!");
+            AuthUser user1 = new AuthUser("user1", "0502222222Aa!");
             UserContact userContact1 = new UserContact(user1.getUsername(), "Jake", "Peralta", "Jake@gmail.com", "0503333333");
             authUserService.register(user1, userContact1);
 

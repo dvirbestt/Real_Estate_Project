@@ -97,7 +97,7 @@ public class PostService {
         if (isPostExist.isPresent()) {
             AppUserDetails userDetails = appUserDetailsService.loadUserByUsername(jwtService.extractUsername(updateRequest.getJwt()));
             if (isPostExist.get().getAuthor().equals(userDetails.getUsername()) ){
-               ;
+
                 return postRepository.save(updateRequest.getPost());
             }
         }

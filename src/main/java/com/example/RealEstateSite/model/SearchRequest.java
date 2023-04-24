@@ -1,5 +1,6 @@
 package com.example.RealEstateSite.model;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -10,6 +11,7 @@ public class SearchRequest {
     @NotNull(message = "Must Fill A City")
     @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])).{2,20}$", message = "Must Fill A City")
     String city;
+
     float numOfRooms;
 
     float price;
