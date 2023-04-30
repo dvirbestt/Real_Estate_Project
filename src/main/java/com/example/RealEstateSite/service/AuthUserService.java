@@ -39,7 +39,7 @@ public class AuthUserService {
         authUser.setPassword(new BCryptPasswordEncoder().encode(authUser.getPassword()));
         authUserRepository.save(authUser);
         userContactService.saveUser(userContact);
-        return ResponseEntity.ok().body(Collections.singleton("User Created Successfully"));
+        return ResponseEntity.ok().body(Collections.singleton("User Created Successfully!"));
     }
 
 
